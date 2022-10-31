@@ -1,5 +1,10 @@
 import 'dart:async';
-import 'package:SMI/classes/smi_userid_and_type.dart';
+import 'package:SMI/sys_proc/leaderboard.dart';
+import 'package:cloud_firestore/cloud_firestore.dart';
+import 'package:firebase_auth/firebase_auth.dart';
+import 'package:firebase_storage/firebase_storage.dart';
+import 'package:image_picker/image_picker.dart';
+import 'package:print_color/print_color.dart';
 
 import 'barrier.dart';
 import 'bird.dart';
@@ -24,8 +29,7 @@ class _EasterEgg extends State<EasterEgg> {
   double birdWidth = 0.1; // out of 2, 2 being the entire width of the screen
   double birdHeight = 0.1; // out of 2, 2 being the entire height of the screen
   int lastScore = 0;
-  int highestScore = 0;
-  // int distance = 0;
+  int distance = 0;
 
   // game settings
   bool gameHasStarted = false;
@@ -39,6 +43,24 @@ class _EasterEgg extends State<EasterEgg> {
     [0.6, 0.4],
     [0.4, 0.6],
   ];
+
+  //Get highest score from Firestore
+
+  getHighestScoreFirebase() async {
+    var highestScoreFirebase = await FirebaseFirestore.instance
+        .collection('users')
+        .doc(FirebaseAuth.instance.currentUser!.uid)
+        .get()
+        .then((DocumentSnapshot documentSnapshot) {
+      if (documentSnapshot.exists) {
+        final userData = documentSnapshot.data() as Map<String, dynamic>;
+        int highestScoreFb = userData['highScore'];
+        return highestScoreFb;
+      }
+    });
+    int highestScore = highestScoreFirebase as int;
+    return highestScore;
+  }
 
   void startGame() {
     gameHasStarted = true;
@@ -62,14 +84,11 @@ class _EasterEgg extends State<EasterEgg> {
 
       // keep the time going!
       time += 0.01;
-      print("time : $time");
-      print("timer : $timer");
     });
   }
 
-  void moveMap() {
+  void moveMap() async {
     for (int i = 0; i < barrierX.length; i++) {
-      print("I : $i");
       // keep barriers moving
       setState(() {
         barrierX[i] -= 0.005;
@@ -84,8 +103,45 @@ class _EasterEgg extends State<EasterEgg> {
         lastScore++;
       }
 
+      //Firebase leaderboard scores
+
+      User? firebaseUser = FirebaseAuth.instance.currentUser;
+      var highestScoreFirebase = await FirebaseFirestore.instance
+          .collection('users')
+          .doc(FirebaseAuth.instance.currentUser!.uid)
+          .get()
+          .then((DocumentSnapshot documentSnapshot) {
+        if (documentSnapshot.exists) {
+          final userData = documentSnapshot.data() as Map<String, dynamic>;
+          int highestScoreFb = userData['highScore'];
+          return highestScoreFb;
+        }
+      });
+      int highestScore = highestScoreFirebase as int;
       if (lastScore > highestScore) {
         highestScore = lastScore;
+
+        try {
+          final docRef = FirebaseFirestore.instance
+              .collection("users")
+              .doc(firebaseUser!.uid);
+
+          docRef.get().then(
+            (DocumentSnapshot doc) {
+              //final userData = doc.data() as Map<String, dynamic>;
+
+              docRef.set(
+                {
+                  'highScore': highestScore,
+                },
+                SetOptions(merge: true),
+              );
+            },
+            onError: (e) => print("Error getting document: $e"),
+          );
+        } catch (e) {
+          Print.red(e);
+        }
       }
     }
   }
@@ -135,7 +191,12 @@ class _EasterEgg extends State<EasterEgg> {
                     ),
                   ),
                   GestureDetector(
-                    onTap: () {},
+                    onTap: () {
+                      Navigator.push(
+                          context,
+                          MaterialPageRoute(
+                              builder: (context) => leaderBoardPage()));
+                    },
                     child: ClipRRect(
                       borderRadius: BorderRadius.circular(5),
                       child: Container(
@@ -143,6 +204,23 @@ class _EasterEgg extends State<EasterEgg> {
                         color: Colors.white,
                         child: Text(
                           'LEADERBOARD',
+                          style: TextStyle(color: Colors.brown),
+                        ),
+                      ),
+                    ),
+                  ),
+                  GestureDetector(
+                    onTap: () {
+                      Navigator.pop(context);
+                      resetGame();
+                    },
+                    child: ClipRRect(
+                      borderRadius: BorderRadius.circular(5),
+                      child: Container(
+                        padding: EdgeInsets.all(7),
+                        color: Colors.white,
+                        child: Text(
+                          'EXIT',
                           style: TextStyle(color: Colors.brown),
                         ),
                       ),
@@ -267,10 +345,23 @@ class _EasterEgg extends State<EasterEgg> {
                       Column(
                         mainAxisAlignment: MainAxisAlignment.center,
                         children: [
-                          Text(
-                            '$highestScore',
-                            style: TextStyle(color: Colors.white, fontSize: 35),
-                          ),
+                          FutureBuilder(
+                              future: getHighestScoreFirebase(),
+                              builder: (context, snapshot) {
+                                if (snapshot.hasData) {
+                                  return Text(
+                                    '${snapshot.data}',
+                                    style: TextStyle(
+                                        color: Colors.white, fontSize: 35),
+                                  );
+                                } else {
+                                  return Text(
+                                    'Loading . . .',
+                                    style: TextStyle(
+                                        color: Colors.white, fontSize: 35),
+                                  );
+                                }
+                              }),
                           SizedBox(
                             height: 15,
                           ),

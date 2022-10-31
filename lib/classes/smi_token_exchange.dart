@@ -37,7 +37,7 @@ class SmiToken extends GetxController {
     // Print.red("IdToken2: $idToken");
     // Print.red("accessToken2: $accessToken");
 
-    var url = Uri.parse('INSERTURLHERE/getCode');
+    var url = Uri.parse('**************************');
     var response = await http.post(url, body: {
       'client_id': email,
       'access_token': accessTokenJson.toString(),
@@ -57,7 +57,7 @@ class SmiToken extends GetxController {
     //Print.green("authCode: $authCode");
 
     //get smi auth token (step2)
-    var url2 = Uri.parse('INSERTURLHERE/getToken');
+    var url2 = Uri.parse('*****************************');
     var response2 = await http.post(url2, body: {
       'client_id': email,
       'grant_type': "authorization_code",
@@ -83,7 +83,7 @@ class SmiToken extends GetxController {
     //need to implement check at api calls if token is expired or not
     var email = controller.googleAccount.value!.email;
 
-    var url3 = Uri.parse('INSERTURLHERE/getToken');
+    var url3 = Uri.parse('******************************');
     var response3 = await http.post(url3, body: {
       'client_id': email,
       'grant_type': "refresh_token",

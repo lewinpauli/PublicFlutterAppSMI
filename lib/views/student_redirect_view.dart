@@ -1,8 +1,8 @@
 // ignore_for_file: unused_import
 
-import 'package:SMI/chat/views/direct_rooms_view.dart';
 import 'package:SMI/views/bluetooth_view2.dart';
 import 'package:SMI/views/lecturer_calendar_view.dart';
+import 'package:SMI/views/nfc_test.dart';
 import 'package:flutter/material.dart';
 import 'package:SMI/views/student_calendar_view.dart';
 import 'package:SMI/views/sql_room_view.dart';
@@ -13,6 +13,8 @@ import 'package:SMI/views/settings_view.dart';
 import 'package:flutter/services.dart'; // needed for SystemUiOverlayStyle.dark
 import 'package:google_nav_bar/google_nav_bar.dart';
 import 'package:universal_io/io.dart';
+
+import '../chat/views/direct_rooms_view.dart';
 
 //the is the start page after the login
 //here only the bottom navbar is defined and the clicked pages/views will be inserted
@@ -28,7 +30,7 @@ class _StudentRedirectViewState extends State<StudentRedirectView> {
   int _currentViewIndex = 0;
   final viewList = [
     const StudentCalendarView(),
-    const BluetoothView2(),
+    nfcScreen(),
     const DirectMessagesView(),
     const SettingsView(),
   ];
@@ -46,14 +48,13 @@ class _StudentRedirectViewState extends State<StudentRedirectView> {
         //bottom navigation bar
         bottomNavigationBar: Container(
           decoration: const BoxDecoration(
-            color: Colors.white,
-            // boxShadow: [
-            //   BoxShadow(
-            //     blurRadius: 20,
-            //     color: Colors.black.withOpacity(.1),
-            //   )
-            // ]
-          ),
+              // boxShadow: [
+              //   BoxShadow(
+              //     blurRadius: 20,
+              //     color: Colors.black.withOpacity(.1),
+              //   )
+              // ]
+              ),
           child: Padding(
             padding: Platform.isIOS
                 ? const EdgeInsets.only(
@@ -68,7 +69,8 @@ class _StudentRedirectViewState extends State<StudentRedirectView> {
                   top: 10,
                   bottom: 10), //for size of the bottom navigation bar
               tabActiveBorder: Border.all(
-                  color: Colors.black, width: 1), //border of active tab
+                  color: ThemeData.dark().backgroundColor,
+                  width: 1), //border of active tab
               onTabChange: (index) {
                 setState(() {
                   _currentViewIndex = index;

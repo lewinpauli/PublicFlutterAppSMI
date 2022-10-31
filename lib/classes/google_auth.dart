@@ -1,15 +1,17 @@
+import 'dart:math';
+
 import 'package:SMI/classes/smi_userid_and_type.dart';
 import 'package:SMI/classes/smi_token_exchange.dart';
 import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:firebase_core/firebase_core.dart';
 import 'package:firebase_messaging/firebase_messaging.dart';
+import 'package:firebase_storage/firebase_storage.dart';
 import 'package:flutter_chat_types/flutter_chat_types.dart' as types;
 import 'package:SMI/chat/src/flutter_firebase_chat_core.dart';
 import 'package:get/get.dart';
 import 'package:google_sign_in/google_sign_in.dart';
 import 'package:print_color/print_color.dart';
-import 'package:SMI/chat/src/push_notifications.dart';
 import 'package:SMI/chat/src/get_notifications.dart';
 import '../chat/src/firebase_chat_core.dart';
 
@@ -44,9 +46,12 @@ class LoginController extends GetxController {
     Print.red("Google accessToken: $accessToken");
     Print.red("Google email: $email");
 
-    final smiToken = Get.put(SmiToken());
+    //final smiToken = Get.put(SmiToken());
     await Firebase.initializeApp();
+    final storage = await FirebaseStorage.instance;
+
     FirebaseAuth _auth = FirebaseAuth.instance;
+    // final response = await http.post(Uri.parse(
     Future<User> currentUser() async {
       final GoogleSignInAccount? googleUser = await _googleSignin.signIn();
       final GoogleSignInAuthentication authentication =
@@ -62,14 +67,14 @@ class LoginController extends GetxController {
     }
 
     await currentUser(); //Wait the current user data Firebase
-    await smiToken.get();
+    //await smiToken.get();
     final fcmToken =
         await FirebaseMessaging.instance.getToken(); //Firebase token
 
     final smiUserIdAndType = Get.put(SmiUserIdAndType());
     var smiId = smiUserIdAndType.smiUserId.value;
     var smiRole = smiUserIdAndType.smiUserType.value; //Wait the SMI Token
-    User? firebaseUser = FirebaseAuth.instance.currentUser;
+    User? firebaseUser = await FirebaseAuth.instance.currentUser;
 
     if (firebaseUser != null) {
       var isdocexists = false;
@@ -103,6 +108,7 @@ class LoginController extends GetxController {
               'smiUserId': '$smiId',
               'smiRole': '$smiRole',
               'firebaseToken': '$fcmToken',
+              'highScore': 0,
             },
             SetOptions(merge: true),
           );
@@ -126,6 +132,27 @@ class LoginController extends GetxController {
       }
     }
 
-    setUpInteractedMessage();
+    String formatBytes(int bytes, int decimals) {
+      if (bytes <= 0) return "0 B";
+      const suffixes = ["B", "KB", "MB", "GB", "TB", "PB", "EB", "ZB", "YB"];
+      var i = (log(bytes) / log(1024)).floor();
+      return ((bytes / pow(1024, i)).toStringAsFixed(decimals)) +
+          ' ' +
+          suffixes[i];
+    }
+
+    final storageRef = FirebaseStorage.instance.ref().child("/");
+    final listResult = await storageRef.listAll();
+    var allsize = 0;
+    for (var item in listResult.items) {
+      // The items under storageRef
+      printInfo();
+
+      var itemdata = await item.getMetadata();
+
+      allsize += itemdata.size!;
+    }
+    Print.cyan(formatBytes(allsize, 0));
+    await setUpInteractedMessage();
   }
 }

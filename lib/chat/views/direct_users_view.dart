@@ -1,5 +1,3 @@
-import 'package:SMI/classes/custom_snackbar.dart';
-import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
 import 'package:flutter_chat_types/flutter_chat_types.dart' as types;
@@ -40,10 +38,7 @@ class _directUsersPageState extends State<directUsersPage> {
         child: Scaffold(
           appBar: AppBar(
               elevation: 0, //removes shadow
-              backgroundColor: Colors.white,
-              iconTheme: const IconThemeData(
-                color: Colors.black, //change your color here
-              ),
+
               automaticallyImplyLeading:
                   false, //Remove default appbar top-left button
               leading: IconButton(
@@ -57,10 +52,8 @@ class _directUsersPageState extends State<directUsersPage> {
               systemOverlayStyle: SystemUiOverlayStyle.dark,
               title: !_searchBoolean
                   ? Text("Users",
-                      style: TextStyle(
-                          color: Colors.black,
-                          fontWeight: FontWeight.bold,
-                          fontSize: 16))
+                      style:
+                          TextStyle(fontWeight: FontWeight.bold, fontSize: 16))
                   : _searchTextField(),
               actions: !_searchBoolean
                   ? [
@@ -137,11 +130,11 @@ class _directUsersPageState extends State<directUsersPage> {
                 margin: const EdgeInsets.only(
                     top: 6, bottom: 6, right: 10, left: 10),
                 decoration: BoxDecoration(
-                  color: Colors.white,
+                  color: Theme.of(context).backgroundColor,
                   borderRadius: BorderRadius.circular(10.0), //round corners
                   boxShadow: [
                     BoxShadow(
-                      color: Colors.grey.withOpacity(0.5),
+                      color: Theme.of(context).shadowColor,
                       //spreadRadius: 5,
                       blurRadius: 3,
                       offset: const Offset(1, 2), // changes position of shadow
@@ -164,9 +157,8 @@ class _directUsersPageState extends State<directUsersPage> {
     //add
     return TextField(
       autofocus: true, //Display the keyboard when TextField is displayed
-      cursorColor: Colors.black,
+      cursorColor: Theme.of(context).primaryColor,
       style: const TextStyle(
-        color: Colors.black,
         fontSize: 20,
       ),
       textInputAction:
@@ -182,7 +174,6 @@ class _directUsersPageState extends State<directUsersPage> {
         hintText: 'Search', //Text that is displayed when nothing is entered.
         hintStyle: TextStyle(
           //Style of hintText
-          color: Colors.black,
           fontSize: 20,
         ),
       ),

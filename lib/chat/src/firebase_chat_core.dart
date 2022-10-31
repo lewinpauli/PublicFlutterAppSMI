@@ -2,9 +2,7 @@ import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:firebase_core/firebase_core.dart';
 import 'package:flutter_chat_types/flutter_chat_types.dart' as types;
-
-import 'firebase_chat_core_config.dart';
-import 'util.dart';
+import 'package:flutter_firebase_chat_core/flutter_firebase_chat_core.dart';
 
 /// Provides access to Firebase chat data. Singleton, use
 /// FirebaseChatCore.instance to aceess methods.
@@ -459,7 +457,7 @@ class FirebaseChatCore {
               data['id'] = doc.id;
               data['lastSeen'] = data['lastSeen']?.millisecondsSinceEpoch;
               data['updatedAt'] = data['updatedAt']?.millisecondsSinceEpoch;
-
+              data['highscore'] = data['highscore'] ?? 0;
               return [...previousValue, types.User.fromJson(data)];
             },
           ),

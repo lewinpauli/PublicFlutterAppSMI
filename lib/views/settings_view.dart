@@ -32,11 +32,11 @@ class _SettingsViewState extends State<SettingsView> {
   );
 
   final Uri url_moodle =
-      Uri(scheme: "https", host: "moodle.stmartins.edu", path: "/login");
+      Uri(scheme: "https", host: "hellohost", path: "/login");
 
   final Uri url_intranet = Uri(
     scheme: "https",
-    host: "intranet.stmartins.edu",
+    host: "randomhost",
     path: "/login",
   );
 
@@ -85,7 +85,6 @@ class _SettingsViewState extends State<SettingsView> {
                   const Text(
                     "Settings Page",
                     style: TextStyle(
-                      color: Colors.black,
                       fontWeight: FontWeight.bold,
                       fontSize: 18,
                     ),
@@ -100,37 +99,41 @@ class _SettingsViewState extends State<SettingsView> {
                       children: [
                         SizedBox(
                           child: ElevatedButton.icon(
-                            icon: Icon(
+                            icon: const Icon(
                               Icons.discord_outlined,
                             ),
-                            label: Text("Discord"),
+                            label: const Text("Discord"),
                             onPressed: () {
                               _launchInBrowser(url_discord);
                             },
                             style: ElevatedButton.styleFrom(
-                                primary: Color.fromRGBO(88, 101, 242, 100)),
+                                backgroundColor:
+                                    const Color.fromRGBO(88, 101, 242, 100),
+                                foregroundColor: Colors.white),
                           ),
                         ),
                         SizedBox(
                           child: ElevatedButton.icon(
-                            icon: Icon(Icons.book),
-                            label: Text("Moodle"),
+                            icon: const Icon(Icons.book),
+                            label: const Text("Moodle"),
                             onPressed: () {
                               _launchInBrowser(url_moodle);
                             },
                             style: ElevatedButton.styleFrom(
-                                primary: Colors.orange),
+                                backgroundColor: Colors.orange,
+                                foregroundColor: Colors.white),
                           ),
                         ),
                         SizedBox(
                           child: ElevatedButton.icon(
-                            icon: Icon(Icons.computer),
-                            label: Text("Intranet"),
+                            icon: const Icon(Icons.computer),
+                            label: const Text("Intranet"),
                             onPressed: () {
                               _launchInBrowser(url_intranet);
                             },
-                            style:
-                                ElevatedButton.styleFrom(primary: Colors.green),
+                            style: ElevatedButton.styleFrom(
+                                backgroundColor: Colors.green,
+                                foregroundColor: Colors.white),
                           ),
                         )
                       ],
@@ -144,8 +147,8 @@ class _SettingsViewState extends State<SettingsView> {
                             const EdgeInsets.only(top: 55, bottom: 5, right: 5),
                         child: ElevatedButton.icon(
                           //minWidth: 10, //width of the button
-                          label: Text("Logout"),
-                          icon: Icon(Icons.logout),
+                          label: const Text("Logout"),
+                          icon: const Icon(Icons.logout),
                           style: ButtonStyle(
                               shape: MaterialStateProperty.all<
                                       RoundedRectangleBorder>(
@@ -182,7 +185,7 @@ class _SettingsViewState extends State<SettingsView> {
                         child: SizedBox(
                           child: IconButton(
                               color: Colors
-                                  .white, //white colored so it is not visible
+                                  .transparent, //white colored so it is not visible
                               onPressed: () {
                                 up++;
                                 if (up > 2) {
@@ -193,7 +196,7 @@ class _SettingsViewState extends State<SettingsView> {
                                 }
                                 konamicode(up, down, left, right);
                               },
-                              icon: Icon(Icons.arrow_upward)),
+                              icon: const Icon(Icons.arrow_upward)),
                         ),
                       )
                     ],
@@ -206,7 +209,7 @@ class _SettingsViewState extends State<SettingsView> {
                         width: 100,
                         child: IconButton(
                             color: Colors
-                                .white, //white colored so it is not visible
+                                .transparent, //white colored so it is not visible
                             onPressed: () {
                               if (up == 2 && down == 2) {
                                 left++;
@@ -229,13 +232,13 @@ class _SettingsViewState extends State<SettingsView> {
                               }
                               konamicode(up, down, left, right);
                             },
-                            icon: Icon(Icons.arrow_back)),
+                            icon: const Icon(Icons.arrow_back)),
                       ),
                       SizedBox(
                         width: 100,
                         child: IconButton(
                             color: Colors
-                                .white, //white colored so it is not visible
+                                .transparent, //white colored so it is not visible
                             onPressed: () {
                               if (left <= 2) {
                                 right++;
@@ -280,7 +283,7 @@ class _SettingsViewState extends State<SettingsView> {
                                     ));
                               }
                             },
-                            icon: Icon(Icons.arrow_forward)),
+                            icon: const Icon(Icons.arrow_forward)),
                       )
                     ],
                   ),
@@ -290,7 +293,7 @@ class _SettingsViewState extends State<SettingsView> {
                       SizedBox(
                         child: IconButton(
                             color: Colors
-                                .white, //white colored so it is not visible
+                                .transparent, //white colored so it is not visible
                             onPressed: () {
                               if (up == 2) {
                                 down++;
@@ -311,7 +314,7 @@ class _SettingsViewState extends State<SettingsView> {
                               }
                               konamicode(up, down, left, right);
                             },
-                            icon: Icon(Icons.arrow_downward)),
+                            icon: const Icon(Icons.arrow_downward)),
                       )
                     ],
                   ),

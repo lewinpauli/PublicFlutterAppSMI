@@ -1,4 +1,3 @@
-import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:firebase_core/firebase_core.dart';
 import 'package:flutter/material.dart';
@@ -52,18 +51,10 @@ class _DirectMessagesViewState extends State<DirectMessagesView> {
       appBar: AppBar(
         elevation: 0, //removes shadow
         systemOverlayStyle: SystemUiOverlayStyle.dark,
-        iconTheme: const IconThemeData(
-          color: Colors.black, //change your color here
-        ),
-
-        backgroundColor: Colors.white,
 
         title: !_searchBoolean
             ? Text("Direct Messages",
-                style: TextStyle(
-                    color: Colors.black,
-                    fontWeight: FontWeight.bold,
-                    fontSize: 16))
+                style: TextStyle(fontWeight: FontWeight.bold, fontSize: 16))
             : _searchTextField(),
         actions: !_searchBoolean
             ? [
@@ -166,9 +157,8 @@ class _DirectMessagesViewState extends State<DirectMessagesView> {
     //add
     return TextField(
       autofocus: true, //Display the keyboard when TextField is displayed
-      cursorColor: Colors.black,
+      cursorColor: Theme.of(context).primaryColor,
       style: const TextStyle(
-        color: Colors.black,
         fontSize: 20,
       ),
       textInputAction:
@@ -184,7 +174,6 @@ class _DirectMessagesViewState extends State<DirectMessagesView> {
         hintText: 'Search', //Text that is displayed when nothing is entered.
         hintStyle: TextStyle(
           //Style of hintText
-          color: Colors.black,
           fontSize: 20,
         ),
       ),
@@ -228,15 +217,22 @@ class _DirectMessagesViewState extends State<DirectMessagesView> {
             stream: FirebaseChatCore.instance.rooms(),
             initialData: const [],
             builder: (context, snapshot) {
-              if (!snapshot.hasData || snapshot.data!.isEmpty) {
-                return Container(
-                  alignment: Alignment.center,
-                  margin: const EdgeInsets.only(
-                    bottom: 200,
-                  ),
-                  child: const CircularProgressIndicator(),
-                );
+              if (snapshot.hasError) {
+                print(snapshot.error);
+                return Text('ERROR');
               }
+              if (snapshot.connectionState == ConnectionState.waiting) {
+                return Center(child: CircularProgressIndicator());
+              }
+              // if (!snapshot.hasData || snapshot.data!.isEmpty) {
+              //   return Container(
+              //     alignment: Alignment.center,
+              //     margin: const EdgeInsets.only(
+              //       bottom: 200,
+              //     ),
+              //     child: const CircularProgressIndicator(),
+              //   );
+              // }
 
               return ListView.builder(
                 itemCount: snapshot.data!.length,
@@ -258,12 +254,12 @@ class _DirectMessagesViewState extends State<DirectMessagesView> {
                       },
                       child: Container(
                         decoration: BoxDecoration(
-                          color: Colors.white,
+                          color: Theme.of(context).backgroundColor,
                           borderRadius:
                               BorderRadius.circular(10.0), //round corners
                           boxShadow: [
                             BoxShadow(
-                              color: Colors.grey.withOpacity(0.5),
+                              color: Theme.of(context).shadowColor,
                               //spreadRadius: 5,
                               blurRadius: 3,
                               offset: const Offset(
@@ -346,12 +342,12 @@ class _DirectMessagesViewState extends State<DirectMessagesView> {
                       },
                       child: Container(
                         decoration: BoxDecoration(
-                          color: Colors.white,
+                          color: Theme.of(context).backgroundColor,
                           borderRadius:
                               BorderRadius.circular(10.0), //round corners
                           boxShadow: [
                             BoxShadow(
-                              color: Colors.grey.withOpacity(0.5),
+                              color: Theme.of(context).shadowColor,
                               //spreadRadius: 5,
                               blurRadius: 3,
                               offset: const Offset(

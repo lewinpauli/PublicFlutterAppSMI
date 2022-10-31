@@ -1,3 +1,6 @@
+import 'dart:ui';
+
+import 'package:SMI/chat/views/chat_views_util.dart';
 import 'package:SMI/views/google_login_view.dart';
 import 'package:SMI/views/lecturer_redirect_view.dart';
 import 'package:SMI/views/student_redirect_view.dart';
@@ -41,7 +44,6 @@ class _AdminViewState extends State<AdminView> {
       value: SystemUiOverlayStyle.dark, //making the icons in status bar dark
 
       child: Scaffold(
-        backgroundColor: Colors.white,
         //need to set SystemUiOverlayStyle.dark,
         appBar: AppBar(
           automaticallyImplyLeading:
@@ -49,13 +51,8 @@ class _AdminViewState extends State<AdminView> {
           elevation: 0, //removes shadow
           title: const Text(
             "Admin View",
-            style: TextStyle(
-              color: Colors.black,
-              fontWeight: FontWeight.bold,
-              fontSize: 16,
-            ),
+            // style: Theme.of(context).appBarTheme.titleTextStyle,
           ),
-          backgroundColor: Colors.white,
         ),
         body: SingleChildScrollView(
           child: Align(
@@ -75,7 +72,6 @@ class _AdminViewState extends State<AdminView> {
                       const Text(
                         "Logout:  ",
                         style: TextStyle(
-                          color: Colors.black,
                           //fontWeight: FontWeight.bold,
                           fontSize: 16,
                         ),
@@ -83,13 +79,10 @@ class _AdminViewState extends State<AdminView> {
                       Padding(
                         padding:
                             const EdgeInsets.only(top: 5, bottom: 5, right: 5),
-                        child: MaterialButton(
-                          //minWidth: 10, //width of the button
-                          color: Colors.deepPurple,
-                          textColor: Colors.white,
-                          shape: RoundedRectangleBorder(
-                              borderRadius: BorderRadius.circular(
-                                  18)), //rounds the button
+                        child: FloatingActionButton.extended(
+                          // shape: RoundedRectangleBorder(
+                          //     borderRadius: BorderRadius.circular(
+                          //         18)), //rounds the button
                           onPressed: () async {
                             // flutterBlue.stopScan();
                             await google.logout();
@@ -104,7 +97,7 @@ class _AdminViewState extends State<AdminView> {
                                       const Duration(seconds: 0),
                                 ));
                           },
-                          child: const Icon(Icons.logout),
+                          label: Icon(Icons.logout),
                         ),
                       ),
                     ],
@@ -142,19 +135,19 @@ class _AdminViewState extends State<AdminView> {
                       const Text(
                         "Change Usertype:  ",
                         style: TextStyle(
-                          color: Colors.black,
                           //fontWeight: FontWeight.bold,
                           fontSize: 16,
                         ),
                       ),
                       DropdownButton<String>(
                         value: dropdownValue,
+                        dropdownColor: Theme.of(context).backgroundColor,
                         icon: const Icon(Icons.arrow_downward),
                         elevation: 16,
-                        style: const TextStyle(color: Colors.deepPurple),
                         underline: Container(
+                          decoration: BoxDecoration(
+                              color: Theme.of(context).primaryColor),
                           height: 2,
-                          color: Colors.deepPurpleAccent,
                         ),
                         onChanged: (String? dropdownValue) {
                           // This is called when the user selects an item.
@@ -167,7 +160,11 @@ class _AdminViewState extends State<AdminView> {
                             .map<DropdownMenuItem<String>>((String value) {
                           return DropdownMenuItem<String>(
                             value: value,
-                            child: Text(value),
+                            child: Text(
+                              value,
+                              style: TextStyle(
+                                  color: Theme.of(context).primaryColor),
+                            ),
                           );
                         }).toList(),
                       ),
@@ -197,8 +194,6 @@ class _AdminViewState extends State<AdminView> {
                   TextButton(
                       style: TextButton.styleFrom(
                         padding: const EdgeInsets.all(20.0),
-                        backgroundColor: Colors.deepPurple,
-                        foregroundColor: Colors.white,
                         shape: RoundedRectangleBorder(
                             borderRadius: BorderRadius.circular(18)),
                       ),

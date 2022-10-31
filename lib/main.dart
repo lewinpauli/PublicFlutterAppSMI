@@ -1,11 +1,14 @@
+import 'package:SMI/config.dart';
 import 'package:SMI/views/google_login_view.dart';
 import 'package:firebase_core/firebase_core.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
 import 'package:overlay_support/overlay_support.dart';
 import 'chat/src/get_notifications.dart';
-import 'chat/src/get_notifications.dart';
+import 'classes/theme.dart';
 import 'firebase_options.dart';
+import 'package:shared_preferences/shared_preferences.dart';
+import 'package:provider/provider.dart';
 
 class CustomPageRoute extends MaterialPageRoute {
   //overwrites duration of material view transition to 0 so no animation is shown
@@ -15,34 +18,38 @@ class CustomPageRoute extends MaterialPageRoute {
   Duration get transitionDuration => const Duration(milliseconds: 0);
 }
 
-void main() {
-  WidgetsFlutterBinding.ensureInitialized();
-  SystemChrome.setPreferredOrientations(
-      [DeviceOrientation.portraitUp]); //will lock app to portrait mode
-  runApp(
-    OverlaySupport(
-      child: MaterialApp(
-        title: 'SMI Flutter App',
-        // onGenerateRoute: generateRoute,
-        navigatorKey: navigatorKey,
-        theme: ThemeData(
-          primarySwatch: Colors.deepPurple, // ?
-          scaffoldBackgroundColor: Colors.white,
-          elevatedButtonTheme: ElevatedButtonThemeData(
-            style: ElevatedButton.styleFrom(
-              backgroundColor: Colors.deepPurple, // background (button) color
-              //onPrimary: Colors.black, // foreground (text) color
-            ),
-          ),
+class MyApp extends StatefulWidget {
+  const MyApp({Key? key}) : super(key: key);
 
-          textSelectionTheme: const TextSelectionThemeData(
-            cursorColor: Colors.deepPurple, //<-- SEE HERE
-          ),
-        ),
-        home: const HomePage(),
-      ),
-    ),
-  );
+  @override
+  State<MyApp> createState() => _MyAppState();
+}
+
+class _MyAppState extends State<MyApp> {
+  void initState() {
+    super.initState();
+    currentTheme.addListener(() {
+      print('changes');
+      setState(() {});
+    });
+  }
+
+  @override
+  Widget build(BuildContext context) {
+    return MaterialApp(
+      title: 'SMI Flutter App',
+      // onGenerateRoute: generateRoute,
+      navigatorKey: navigatorKey,
+      theme: AppTheme().lightTheme,
+      darkTheme: AppTheme().darkTheme,
+      themeMode: currentTheme.currentTeme(),
+      home: const HomePage(),
+    );
+  }
+}
+
+void main() {
+  runApp(const MyApp());
 }
 
 class HomePage extends StatefulWidget {
@@ -79,12 +86,5 @@ class _HomePageState extends State<HomePage> {
             }
           },
         ));
-  }
-
-  @override
-  void initState() {
-// TODO: implement initState
-    super.initState();
-    //setUpInteractedMessage();
   }
 }

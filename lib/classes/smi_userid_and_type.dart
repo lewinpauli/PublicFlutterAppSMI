@@ -17,8 +17,7 @@ class SmiUserIdAndType extends GetxController {
 
     var accesstoken = smiToken.smiAccessToken.value;
 
-    var url = Uri.parse(
-        'INSERTURLHERE/getUserType?email=$email');
+    var url = Uri.parse('https://apiprovider/getUserType?email=$email');
     var response = await http.get(url);
     //Print.green('Response status: ${response.statusCode}');
     Print.green('Response body: ${response.body}');

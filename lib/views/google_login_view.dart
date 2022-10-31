@@ -3,6 +3,7 @@
 import 'package:SMI/classes/google_auth.dart';
 import 'package:SMI/classes/smi_token_exchange.dart';
 import 'package:SMI/classes/smi_userid_and_type.dart';
+import 'package:SMI/config.dart';
 import 'package:SMI/views/admin_view.dart';
 import 'package:SMI/views/lecturer_redirect_view.dart';
 import 'package:SMI/views/student_redirect_view.dart';
@@ -45,11 +46,12 @@ class GoogleLoginView extends StatelessWidget {
                         .center, //Center Row contents vertically,
                     children: [
                       Image.asset("images/smi2.png", width: 50),
-                      const SizedBox(width: 20),
-                      Text(
-                        "Welcome to\nSaint Martin's Institute\nof Higher Education!",
+                      const SizedBox(
+                        width: 20,
+                      ),
+                      const Text(
+                        "Welcome to\nSaint Martin's Institute\nof Higher Education",
                         style: TextStyle(
-                          color: Colors.grey[700],
                           fontWeight: FontWeight.bold,
                           fontSize: 18,
                         ),
@@ -102,9 +104,7 @@ class GoogleLoginView extends StatelessWidget {
                       RegExpMatch? regexdomain = exp.firstMatch(googleusermail);
                       // Print.red(regexdomain?[0]); // "Parse"
 
-                      if (regexdomain?[0] == "stmartins.edu") {
-                        //if google login stmartins.edu correct:
-
+                      if (regexdomain?[0] == "someregexp") {
                         //get smi token
                         // await smiToken.get(); //deactivated because iOS cannot get serverAuthCode
 
@@ -173,7 +173,7 @@ class GoogleLoginView extends StatelessWidget {
                         }
 
                         // Navigator.push(
-                        //     context,
+                        //     context,DARK
                         //     PageRouteBuilder(
                         //       pageBuilder: (_, __, ___) => const StudentRedirectView(),
                         //       transitionDuration: const Duration(seconds: 0),
@@ -208,9 +208,16 @@ class GoogleLoginView extends StatelessWidget {
                   backgroundColor: Colors.white,
                   foregroundColor: Colors.black,
                 ),
+
                 const SizedBox(
                   height: 300,
                 ),
+                FloatingActionButton.extended(
+                    onPressed: () {
+                      currentTheme.switchTheme();
+                    },
+                    label: const Text('switch theme'),
+                    icon: const Icon(Icons.brightness_high)),
               ],
             ),
           ),

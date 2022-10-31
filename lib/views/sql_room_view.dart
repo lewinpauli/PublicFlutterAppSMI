@@ -44,8 +44,8 @@ class LocationData {
 }
 
 Future<List<LocationData>> getLocationData() async {
-  final response = await http.get(
-      Uri.parse("INSERTURLHERE/getLocations"));
+  final response =
+      await http.get(Uri.parse("https://apiprovider/getLocations"));
 
   if (response.statusCode == 200) {
     return locationDataFromJson(response.body);
@@ -68,8 +68,7 @@ class _SQLRoomViewState extends State<SQLRoomView> {
       backgroundColor: Colors.white,
       //need to set SystemUiOverlayStyle.dark,
       appBar: AppBar(
-        automaticallyImplyLeading:
-              false, //removes left back button from AppBar
+        automaticallyImplyLeading: false, //removes left back button from AppBar
         elevation: 0, //removes shadow
         title: const Text(
           "SQL Room/Bluetooth Mapping",

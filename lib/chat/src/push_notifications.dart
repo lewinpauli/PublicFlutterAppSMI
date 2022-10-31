@@ -11,8 +11,7 @@ sendNotificationToDirectUser(
     String senderName, String current_room, String sendToToken) async {
   //Our API Key
   var serverKey =
-      "INSERTAPIKEYHERE";
-
+"***********************************************************************"
   //Get our Admin token from Firesetore DB
   var token = sendToToken;
   //Create Message with Notification Payload
@@ -55,8 +54,7 @@ sendNotificationToGroupUsers(String senderName, String current_group_room,
     List<String> groupTokens) async {
   //Our API Key
   var serverKey =
-      "INSERTAPIKEYHERE";
-
+      "*******************************";
   //Get our Admin token from Firesetore DB
   List<String> group_tokens = groupTokens;
   //Create Message with Notification Payload

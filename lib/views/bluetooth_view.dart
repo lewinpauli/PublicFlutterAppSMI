@@ -167,19 +167,17 @@ class FindDevicesScreen extends StatelessWidget {
     // print every secound "yes"
 
     return Scaffold(
-      backgroundColor: Colors.white,
       //need to set SystemUiOverlayStyle.dark,
       appBar: AppBar(
         elevation: 0, //removes shadow
         title: const Text(
           "Bluetooth Scanner",
           style: TextStyle(
-            color: Colors.black,
             fontWeight: FontWeight.bold,
             fontSize: 16,
+            color: Colors.red,
           ),
         ),
-        backgroundColor: Colors.white,
       ),
       body: SingleChildScrollView(
         child: Column(

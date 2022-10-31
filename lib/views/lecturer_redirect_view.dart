@@ -12,8 +12,10 @@ import 'package:SMI/views/firebase_room_view.dart';
 import 'package:SMI/views/settings_view.dart';
 import 'package:SMI/views/lecturer_attendance_view.dart';
 import 'package:flutter/services.dart'; // needed for SystemUiOverlayStyle.dark
+import 'package:flutter_chat_ui/flutter_chat_ui.dart';
 import 'package:google_nav_bar/google_nav_bar.dart';
 import 'package:universal_io/io.dart';
+import 'package:SMI/classes/theme.dart';
 
 //the is the start page after the login
 //here only the bottom navbar is defined and the clicked pages/views will be inserted
@@ -46,9 +48,7 @@ class _LecturerRedirectViewState extends State<LecturerRedirectView> {
 
         //bottom navigation bar
         bottomNavigationBar: Container(
-          decoration: const BoxDecoration(
-            color: Colors.white,
-          ),
+          decoration: const BoxDecoration(),
           child: Padding(
             padding: Platform.isIOS
                 ? const EdgeInsets.only(
@@ -63,7 +63,8 @@ class _LecturerRedirectViewState extends State<LecturerRedirectView> {
                   top: 10,
                   bottom: 10), //for size of the bottom navigation bar
               tabActiveBorder: Border.all(
-                  color: Colors.black, width: 1), //border of active tab
+                  color: ThemeData.dark().backgroundColor,
+                  width: 1), //border of active tab
               onTabChange: (index) {
                 setState(() {
                   _currentViewIndex = index;

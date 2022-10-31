@@ -1,5 +1,3 @@
-// ignore_for_file: use_build_context_synchronously
-
 import 'package:SMI/classes/bluetooth_scan.dart';
 import 'package:SMI/classes/custom_snackbar.dart';
 import 'package:flutter/material.dart';
@@ -58,19 +56,16 @@ class _MainBluetoothScreenState extends State<MainBluetoothScreen> {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-        backgroundColor: Colors.white,
         //need to set SystemUiOverlayStyle.dark,
         appBar: AppBar(
           elevation: 0, //removes shadow
           title: const Text(
             "Bluetooth Scanner",
             style: TextStyle(
-              color: Colors.black,
               fontWeight: FontWeight.bold,
               fontSize: 16,
             ),
           ),
-          backgroundColor: Colors.white,
         ),
         body: Center(
           child: Column(

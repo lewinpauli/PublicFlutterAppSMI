@@ -4,7 +4,6 @@ import 'package:get/get.dart';
 import 'package:http/http.dart' as http;
 import 'package:intl/intl.dart'; //for time formatting
 //Datetime in Flutter cheatsheet https://www.flutterbeads.com/format-datetime-in-flutter/
-
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart'; // needed for SystemUiOverlayStyle.dark
 import 'package:print_color/print_color.dart';
@@ -82,7 +81,7 @@ class StudentDaySchedule {
 Future<List<StudentDaySchedule>> getStudentDayScheduleList(
     DateTime date) async {
   final response = await http.get(Uri.parse(
-      'INSERTURLHERE/getStudentDaySchedule?userid=${smiUserIdAndType.smiUserId.value}&date=$date')); //2020-03-05
+      'https://apiprovider/getStudentDaySchedule?userid=${smiUserIdAndType.smiUserId.value}&date=$date')); //2020-03-05
 
   if (response.statusCode == 200) {
     return studentDayScheduleFromJson(response.body);
@@ -128,12 +127,10 @@ class _StudentCalendarViewState extends State<StudentCalendarView> {
           title: const Text(
             "Calendar",
             style: TextStyle(
-              color: Colors.black,
               fontWeight: FontWeight.bold,
               fontSize: 16,
             ),
           ),
-          backgroundColor: Colors.white,
         ),
         body: SingleChildScrollView(
           child: Column(
@@ -162,11 +159,11 @@ class _StudentCalendarViewState extends State<StudentCalendarView> {
                   margin: const EdgeInsets.only(
                       top: 10, bottom: 10, right: 10, left: 10),
                   decoration: BoxDecoration(
-                    color: Colors.white,
+                    color: Theme.of(context).backgroundColor,
                     borderRadius: BorderRadius.circular(10.0), //round corners
                     boxShadow: [
                       BoxShadow(
-                        color: Colors.grey.withOpacity(0.5),
+                        color: Theme.of(context).shadowColor,
                         //spreadRadius: 5,
                         blurRadius: 3,
                         offset:
@@ -177,9 +174,10 @@ class _StudentCalendarViewState extends State<StudentCalendarView> {
                   child: Padding(
                     padding: const EdgeInsets.all(10),
                     child: TableCalendar(
-                      calendarStyle: const CalendarStyle(
+                      calendarStyle: CalendarStyle(
                         selectedDecoration: BoxDecoration(
-                            color: Colors.deepPurple, shape: BoxShape.circle),
+                            color: Theme.of(context).primaryColor,
+                            shape: BoxShape.circle),
                       ),
                       focusedDay: _focusedDay,
                       firstDay: DateTime.utc(2010, 1, 1),
@@ -251,12 +249,12 @@ class _StudentCalendarViewState extends State<StudentCalendarView> {
                                 margin: const EdgeInsets.only(
                                     top: 6, bottom: 6, right: 10, left: 10),
                                 decoration: BoxDecoration(
-                                  color: Colors.white,
+                                  color: Theme.of(context).backgroundColor,
                                   borderRadius: BorderRadius.circular(
                                       10.0), //round corners
                                   boxShadow: [
                                     BoxShadow(
-                                      color: Colors.grey.withOpacity(0.5),
+                                      color: Theme.of(context).shadowColor,
                                       //spreadRadius: 5,
                                       blurRadius: 3,
                                       offset: const Offset(

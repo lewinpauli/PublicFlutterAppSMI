@@ -1,5 +1,6 @@
 import 'dart:convert';
 import 'dart:io';
+import 'package:SMI/config.dart';
 import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter_chat_types/flutter_chat_types.dart' as types;
@@ -39,18 +40,14 @@ class _ChatPageState extends State<ChatPage> {
         appBar: AppBar(
           elevation: 0, //removes shadow
           systemOverlayStyle: SystemUiOverlayStyle.dark,
-          iconTheme: const IconThemeData(
-            color: Colors.black, //change your color here
-          ),
+
           title: Text(
             widget.room.name ?? 'ChatName',
-            style: TextStyle(
-              color: Colors.black,
+            style: const TextStyle(
               fontWeight: FontWeight.bold,
               fontSize: 16,
             ),
           ),
-          backgroundColor: Colors.white,
         ),
         body: StreamBuilder<types.Room>(
           initialData: widget.room,
@@ -59,6 +56,10 @@ class _ChatPageState extends State<ChatPage> {
             initialData: const [],
             stream: FirebaseChatCore.instance.messages(snapshot.data!),
             builder: (context, snapshot) => Chat(
+              theme: DefaultChatTheme(
+                backgroundColor: Theme.of(context).backgroundColor,
+                primaryColor: Theme.of(context).primaryColor,
+              ),
               isAttachmentUploading: _isAttachmentUploading,
               messages: snapshot.data ?? [],
               onAttachmentPressed: _handleAtachmentPressed,

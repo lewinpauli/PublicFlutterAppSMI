@@ -1,8 +1,5 @@
 import 'dart:convert';
-import 'dart:developer';
 import 'dart:io';
-
-import 'package:SMI/chat/views/group_users_view.dart';
 import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:file_picker/file_picker.dart';
 import 'package:firebase_messaging/firebase_messaging.dart';
@@ -39,18 +36,14 @@ class _GroupChatPageState extends State<GroupChatPage> {
         appBar: AppBar(
           elevation: 0, //removes shadow
           systemOverlayStyle: SystemUiOverlayStyle.dark,
-          iconTheme: const IconThemeData(
-            color: Colors.black, //change your color here
-          ),
+
           title: Text(
             widget.room.name ?? 'ChatName',
             style: TextStyle(
-              color: Colors.black,
               fontWeight: FontWeight.bold,
               fontSize: 16,
             ),
           ),
-          backgroundColor: Colors.white,
         ),
         body: StreamBuilder<types.Room>(
           initialData: widget.room,

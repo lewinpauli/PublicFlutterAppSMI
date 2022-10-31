@@ -68,7 +68,7 @@ class DailyLecturerCourses {
 Future<List<DailyLecturerCourses>> getStudentDayScheduleList(
     DateTime date) async {
   final response = await http.get(Uri.parse(
-      'INSERTURLHERE/getLecturerDayCourses?userid=${smiUserIdAndType.smiUserId.value}&date=$date')); //userid hardcoded right now, 2020-03-05
+      'https://apiprovider/getLecturerDayCourses?userid=${smiUserIdAndType.smiUserId.value}&date=$date')); //userid hardcoded right now, 2020-03-05
 
   if (response.statusCode == 200) {
     return studentDayScheduleFromJson(response.body);
@@ -109,13 +109,7 @@ class _LecturerCalendarViewState extends State<LecturerCalendarView> {
               false, //removes left back button from AppBar
           title: const Text(
             "Calendar",
-            style: TextStyle(
-              color: Colors.black,
-              fontWeight: FontWeight.bold,
-              fontSize: 16,
-            ),
           ),
-          backgroundColor: Colors.white,
         ),
         body: SingleChildScrollView(
           child: Column(
@@ -131,12 +125,12 @@ class _LecturerCalendarViewState extends State<LecturerCalendarView> {
                   margin: const EdgeInsets.only(
                       top: 10, bottom: 10, right: 10, left: 10),
                   decoration: BoxDecoration(
-                    color: Colors.white,
+                    color: Theme.of(context).backgroundColor,
                     borderRadius: BorderRadius.circular(10.0), //round corners
                     boxShadow: [
                       BoxShadow(
-                        color: Colors.grey.withOpacity(0.5),
                         //spreadRadius: 5,
+                        color: Theme.of(context).shadowColor,
                         blurRadius: 3,
                         offset:
                             const Offset(1, 2), // changes position of shadow
@@ -146,9 +140,10 @@ class _LecturerCalendarViewState extends State<LecturerCalendarView> {
                   child: Padding(
                     padding: const EdgeInsets.all(10),
                     child: TableCalendar(
-                      calendarStyle: const CalendarStyle(
+                      calendarStyle: CalendarStyle(
                         selectedDecoration: BoxDecoration(
-                            color: Colors.deepPurple, shape: BoxShape.circle),
+                            color: Theme.of(context).primaryColor,
+                            shape: BoxShape.circle),
                       ),
                       focusedDay: _focusedDay,
                       firstDay: DateTime.utc(2010, 1, 1),
@@ -222,12 +217,12 @@ class _LecturerCalendarViewState extends State<LecturerCalendarView> {
                                 margin: const EdgeInsets.only(
                                     top: 6, bottom: 6, right: 10, left: 10),
                                 decoration: BoxDecoration(
-                                  color: Colors.white,
+                                  color: Theme.of(context).backgroundColor,
                                   borderRadius: BorderRadius.circular(
                                       10.0), //round corners
                                   boxShadow: [
                                     BoxShadow(
-                                      color: Colors.grey.withOpacity(0.5),
+                                      color: Theme.of(context).shadowColor,
                                       //spreadRadius: 5,
                                       blurRadius: 3,
                                       offset: const Offset(
@@ -279,8 +274,10 @@ class _LecturerCalendarViewState extends State<LecturerCalendarView> {
                                         MaterialPageRoute(
                                           builder: (context) =>
                                               LecturerAttendanceView(
-                                            current_course_name: current_course_name,
-                                            current_courseRole: current_courseRole,
+                                            current_course_name:
+                                                current_course_name,
+                                            current_courseRole:
+                                                current_courseRole,
                                             current_end_date: current_end_date,
                                             current_start_date:
                                                 current_start_date,

@@ -1,5 +1,4 @@
 import 'package:SMI/classes/custom_snackbar.dart';
-import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
 import 'package:flutter_chat_types/flutter_chat_types.dart' as types;
@@ -127,11 +126,9 @@ class _GroupUsersPageState extends State<GroupUsersPage> {
         },
         child: Scaffold(
           appBar: AppBar(
-            elevation: 0, //removes shadow
-              iconTheme: const IconThemeData(
-                color: Colors.black, //change your color here
-              ),
-              backgroundColor: Colors.white,
+              elevation: 0, //removes shadow
+
+              backgroundColor: Theme.of(context).backgroundColor,
               automaticallyImplyLeading:
                   false, //Remove default appbar top-left button
               leading: IconButton(
@@ -144,9 +141,8 @@ class _GroupUsersPageState extends State<GroupUsersPage> {
               ),
               systemOverlayStyle: SystemUiOverlayStyle.light,
               title: !_searchBoolean
-                  ? Text("Add Users to Group",
+                  ? const Text("Add Users to Group",
                       style: TextStyle(
-                        color: Colors.black,
                         fontWeight: FontWeight.bold,
                         fontSize: 16,
                       ))
@@ -154,7 +150,7 @@ class _GroupUsersPageState extends State<GroupUsersPage> {
               actions: !_searchBoolean
                   ? [
                       IconButton(
-                          icon: Icon(Icons.search),
+                          icon: const Icon(Icons.search),
                           onPressed: () {
                             setState(() {
                               _searchBoolean = true;
@@ -164,7 +160,7 @@ class _GroupUsersPageState extends State<GroupUsersPage> {
                     ]
                   : [
                       IconButton(
-                          icon: Icon(Icons.refresh_outlined),
+                          icon: const Icon(Icons.refresh_outlined),
                           onPressed: () {
                             setState(() {
                               _searchBoolean = false;
@@ -235,11 +231,11 @@ class _GroupUsersPageState extends State<GroupUsersPage> {
                 margin: const EdgeInsets.only(
                     top: 6, bottom: 6, right: 10, left: 10),
                 decoration: BoxDecoration(
-                  color: Colors.white,
+                  color: Theme.of(context).backgroundColor,
                   borderRadius: BorderRadius.circular(10.0), //round corners
                   boxShadow: [
                     BoxShadow(
-                      color: Colors.grey.withOpacity(0.5),
+                      color: Theme.of(context).shadowColor,
                       //spreadRadius: 5,
                       blurRadius: 3,
                       offset: const Offset(1, 2), // changes position of shadow
@@ -261,7 +257,7 @@ class _GroupUsersPageState extends State<GroupUsersPage> {
                         groupUsersIds.add(user.id);
                         print("Searchgroup : $searchgroup_initial");
                       } else {
-                        searchgroupusers.remove(getUserName(user));
+                        //searchgroupusers.remove(getUserName(user));
                         groupUsers_initial.remove(user);
                         groupUsersNames.remove(getUserName(user));
                         groupUsersIds.remove(user.id);
@@ -281,9 +277,8 @@ class _GroupUsersPageState extends State<GroupUsersPage> {
     //add
     return TextField(
       autofocus: true, //Display the keyboard when TextField is displayed
-      cursorColor: Colors.black,
+      cursorColor: Theme.of(context).primaryColor,
       style: const TextStyle(
-        color: Colors.black,
         fontSize: 20,
       ),
       textInputAction:
@@ -299,7 +294,6 @@ class _GroupUsersPageState extends State<GroupUsersPage> {
         hintText: 'Search', //Text that is displayed when nothing is entered.
         hintStyle: TextStyle(
           //Style of hintText
-          color: Colors.black,
           fontSize: 20,
         ),
       ),

@@ -37,95 +37,91 @@ class BluetoothScan extends GetxController {
     pushedToDatabase.value = false;
 
     Print.green("start of startScan method");
-    Print.green(smiUserIdAndType.smiUserId.value);
+
     //Api call to get macAddressOfCurrentRoom and rssiLimit
-    try {
-      var response = await http.get(Uri.parse(
-          'INSERTURLHERE/getCurrentClassMacAddressAndRssi?userid=${smiUserIdAndType.smiUserId.value}&time=09:00:00&date=2020-03-05')); //time and date hardcoded right now
+    var response = await http.get(Uri.parse(
+        'https://apiprovider/getCurrentClassMacAddressAndRssi?userid=${smiUserIdAndType.smiUserId.value}&time=09:00:00&date=2020-03-05')); //time and date hardcoded right now
 
-      Print.green('Response body: ${response.body}');
-      var responseJson = jsonDecode(response.body);
+    Print.green('Response body: ${response.body}');
+    var responseJson = jsonDecode(response.body);
 
-      //exctracting values from api response
-      var tempTtableentryid = responseJson[0]["ttableentryid"];
-      var tempCurrentLesson = responseJson[0]["description"];
-      var tempCurrentRoom = responseJson[0]["roomNumber"];
-      var tempNeededDistance = responseJson[0]["rssiPower"].toString();
-      var tempMacAddressOfCurrentRoom = responseJson[0]["macAddress"];
+    //exctracting values from api response
+    var tempTtableentryid = responseJson[0]["ttableentryid"];
+    var tempCurrentLesson = responseJson[0]["description"];
+    var tempCurrentRoom = responseJson[0]["roomNumber"];
+    var tempNeededDistance = responseJson[0]["rssiPower"].toString();
+    var tempMacAddressOfCurrentRoom = responseJson[0]["macAddress"];
 
-      // Start scanning
-      await flutterBlue.startScan(timeout: const Duration(seconds: 3));
+    // Start scanning
+    await flutterBlue.startScan(timeout: const Duration(seconds: 3));
 
-      Print.green("Bluetooth Scan started");
-      // Listen to scan results
-      flutterBlue.scanResults.listen((results) {
-        // do something with scan results
+    Print.green("Bluetooth Scan started");
+    // Listen to scan results
+    flutterBlue.scanResults.listen((results) {
+      // do something with scan results
 
-        for (ScanResult r in results) {
-          Print.green("Scan result: ${r.device.name} ${r.device.id} ${r.rssi}");
-          scanResults[r.device.id.toString()] = r.rssi;
-          if (r.device.id.toString() == tempMacAddressOfCurrentRoom) {
-            Print.red(r.advertisementData);
-          }
+      for (ScanResult r in results) {
+        Print.green(
+            "Scan result: ${r.device.name} ${r.device.id} ${r.rssi} ${r.advertisementData.serviceUuids}");
+        scanResults[r.device.id.toString()] = r.rssi;
+        if (r.device.id.toString() == tempMacAddressOfCurrentRoom) {
+          Print.red(r.advertisementData);
         }
-        for (ScanResult r in results) {
-          // Print.red('${r.device.id} found! rssi: ${r.rssi}');
-          scanResults["${r.device.id}"] =
-              r.rssi; //filling map with scan results
+      }
+      for (ScanResult r in results) {
+        // Print.red('${r.device.id} found! rssi: ${r.rssi}');
+        scanResults["${r.device.id}"] = r.rssi; //filling map with scan results
 
-        }
-      });
+      }
+    });
 
-      Print.red(scanResults[tempMacAddressOfCurrentRoom].toString());
+    Print.red(scanResults[tempMacAddressOfCurrentRoom].toString());
 
-      // Print.red(scanResults[macAddressOfCurrentRoom]); //accessing rssi value of Estimote beacon
+    // Print.red(scanResults[macAddressOfCurrentRoom]); //accessing rssi value of Estimote beacon
 
-      // Print.red("macAddressOfCurrentRoom" + tempMacAddressOfCurrentRoom)
+    // Print.red("macAddressOfCurrentRoom" + tempMacAddressOfCurrentRoom)
 
-      var tempDistanceToCurrentRoom = scanResults[
-          tempMacAddressOfCurrentRoom]; //assigning rssi value to variable
-      Print.red("tempNeededDistance: $tempNeededDistance");
-      Print.red("tempDistanceToCurrentRoom: $tempDistanceToCurrentRoom");
+    var tempDistanceToCurrentRoom = scanResults[
+        tempMacAddressOfCurrentRoom]; //assigning rssi value to variable
+    Print.red("tempNeededDistance: $tempNeededDistance");
+    Print.red("tempDistanceToCurrentRoom: $tempDistanceToCurrentRoom");
 
-      if (tempDistanceToCurrentRoom != null) {
-        if (tempDistanceToCurrentRoom >= int.parse(tempNeededDistance)) {
-          Print.green("You are in the classroom");
-          isCloseEnough.value = true;
-        } else {
-          Print.red("You are not in the classroom");
-          isCloseEnough.value = false;
-        }
+    if (tempDistanceToCurrentRoom != null) {
+      if (tempDistanceToCurrentRoom >= int.parse(tempNeededDistance)) {
+        Print.green("You are in the classroom");
+        isCloseEnough.value = true;
       } else {
         Print.red("You are not in the classroom");
         isCloseEnough.value = false;
       }
-
-      //pushing isCloseEnough value true to api
-      if (isCloseEnough == true) {
-        var response2 = await http.get(Uri.parse(
-            'INSERTURLHERE/saveAutoAttendance?ttableentryid=$tempTtableentryid&userid=${smiUserIdAndType.smiUserId.value}&attendanceState=1'));
-        // Print.green('Response body2: ${response2.body}');
-        var responseJson2 = jsonDecode(response2.body);
-        var responseStatus2 = responseJson2["status"];
-        Print.green("responseStatus2: $responseStatus2");
-
-        if (responseStatus2 == "completed") {
-          pushedToDatabase.value = true;
-        }
-      }
-
-      //setting other global values at end because RxInt RxString is not good for calculations
-      currentLesson.value = tempCurrentLesson;
-      currentRoom.value = tempCurrentRoom;
-      macAddressOfCurrentRoom.value = tempMacAddressOfCurrentRoom;
-      distanceToCurrentRoom.value = tempDistanceToCurrentRoom.toString();
-      neededDistance.value = tempNeededDistance;
-
-      // Stop scanning
-      await flutterBlue.stopScan();
-      Print.green("end of startScan method");
-    } catch (e) {
-      Print.red("Error in api call: $e");
+    } else {
+      Print.red("You are not in the classroom");
+      isCloseEnough.value = false;
     }
+
+    //pushing isCloseEnough value true to api
+    if (isCloseEnough == true) {
+      var response2 = await http.get(Uri.parse(
+          'https://apiprovider/saveAutoAttendance?ttableentryid=$tempTtableentryid&userid=${smiUserIdAndType.smiUserId.value}&attendanceState=1'));
+      // Print.green('Response body2: ${response2.body}');
+      var responseJson2 = jsonDecode(response2.body);
+      var responseStatus2 = responseJson2["status"];
+      Print.green("responseStatus2: $responseStatus2");
+
+      if (responseStatus2 == "completed") {
+        pushedToDatabase.value = true;
+      }
+    }
+
+    //setting other global values at end because RxInt RxString is not good for calculations
+    currentLesson.value = tempCurrentLesson;
+    currentRoom.value = tempCurrentRoom;
+    macAddressOfCurrentRoom.value = tempMacAddressOfCurrentRoom;
+    distanceToCurrentRoom.value = tempDistanceToCurrentRoom.toString();
+    neededDistance.value = tempNeededDistance;
+
+    // Stop scanning
+    await flutterBlue.stopScan();
+    Print.green("end of startScan method");
   }
 }
