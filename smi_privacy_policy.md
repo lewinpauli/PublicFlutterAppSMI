@@ -6,11 +6,10 @@
 
 Saint Martin’s Institute of Higher Education is committed to protect the visitors’ privacy
 
-whilst viewing and gathering information from th[e](http://www.stmartins.edu/)[ ](http://www.stmartins.edu/)[**www.stmartins.edu**](http://www.stmartins.edu/)[** ](http://www.stmartins.edu/)and associated/linked
+whilst viewing and gathering information from the [**www.stmartins.edu**](http://www.stmartins.edu/) and associated/linked
 
-web pages in accordance with the [provisions](http://www.idpc.gov.mt/article.aspx?art=116)[ ](http://www.idpc.gov.mt/article.aspx?art=116)[of](http://www.idpc.gov.mt/article.aspx?art=116)[ ](http://www.idpc.gov.mt/article.aspx?art=116)[the](http://www.idpc.gov.mt/article.aspx?art=116)[ ](http://www.idpc.gov.mt/article.aspx?art=116)[**General**](http://www.idpc.gov.mt/article.aspx?art=116)[** ](http://www.idpc.gov.mt/article.aspx?art=116)[Data**](http://www.idpc.gov.mt/article.aspx?art=116)[** ](http://www.idpc.gov.mt/article.aspx?art=116)[Protection**](http://www.idpc.gov.mt/article.aspx?art=116)[** ](http://www.idpc.gov.mt/article.aspx?art=116)[Regulation**](http://www.idpc.gov.mt/article.aspx?art=116)[** ](http://www.idpc.gov.mt/article.aspx?art=116)[and](http://www.idpc.gov.mt/article.aspx?art=116)
-
-[all](http://www.idpc.gov.mt/article.aspx?art=116)[ ](http://www.idpc.gov.mt/article.aspx?art=116)[other](http://www.idpc.gov.mt/article.aspx?art=116)[ ](http://www.idpc.gov.mt/article.aspx?art=116)[applicable](http://www.idpc.gov.mt/article.aspx?art=116)[ ](http://www.idpc.gov.mt/article.aspx?art=116)[privacy](http://www.idpc.gov.mt/article.aspx?art=116)[ ](http://www.idpc.gov.mt/article.aspx?art=116)[and](http://www.idpc.gov.mt/article.aspx?art=116)[ ](http://www.idpc.gov.mt/article.aspx?art=116)[data](http://www.idpc.gov.mt/article.aspx?art=116)[ ](http://www.idpc.gov.mt/article.aspx?art=116)[protection](http://www.idpc.gov.mt/article.aspx?art=116)[ ](http://www.idpc.gov.mt/article.aspx?art=116)[legislation.](http://www.idpc.gov.mt/article.aspx?art=116)[ ](http://www.idpc.gov.mt/article.aspx?art=116)The Institute’s underlying Privacy
+web pages in accordance with the [provisions of the **General Data Protection Regulation** and <br>
+all other applicable privacy and data protection legislation](http://www.idpc.gov.mt/article.aspx?art=116). The Institute’s underlying Privacy
 
 Policy highlights what data is collected and the reason for use of this data by the Institute’s
 
@@ -157,7 +156,7 @@ become aware of any changes. The date when this Policy was last updated is indic
 
 the end of this Policy.
 
-[Direct](mailto:Direct%20your%20queries%20about%20the%20Privacy%20Policy%20statement%20to%20the%20registrar@stmartins.edu)[ ](mailto:Direct%20your%20queries%20about%20the%20Privacy%20Policy%20statement%20to%20the%20registrar@stmartins.edu)[your](mailto:Direct%20your%20queries%20about%20the%20Privacy%20Policy%20statement%20to%20the%20registrar@stmartins.edu)[ ](mailto:Direct%20your%20queries%20about%20the%20Privacy%20Policy%20statement%20to%20the%20registrar@stmartins.edu)[queries](mailto:Direct%20your%20queries%20about%20the%20Privacy%20Policy%20statement%20to%20the%20registrar@stmartins.edu)[ ](mailto:Direct%20your%20queries%20about%20the%20Privacy%20Policy%20statement%20to%20the%20registrar@stmartins.edu)[about](mailto:Direct%20your%20queries%20about%20the%20Privacy%20Policy%20statement%20to%20the%20registrar@stmartins.edu)[ ](mailto:Direct%20your%20queries%20about%20the%20Privacy%20Policy%20statement%20to%20the%20registrar@stmartins.edu)[the](mailto:Direct%20your%20queries%20about%20the%20Privacy%20Policy%20statement%20to%20the%20registrar@stmartins.edu)[ ](mailto:Direct%20your%20queries%20about%20the%20Privacy%20Policy%20statement%20to%20the%20registrar@stmartins.edu)[Privacy](mailto:Direct%20your%20queries%20about%20the%20Privacy%20Policy%20statement%20to%20the%20registrar@stmartins.edu)[ ](mailto:Direct%20your%20queries%20about%20the%20Privacy%20Policy%20statement%20to%20the%20registrar@stmartins.edu)[Policy](mailto:Direct%20your%20queries%20about%20the%20Privacy%20Policy%20statement%20to%20the%20registrar@stmartins.edu)[ ](mailto:Direct%20your%20queries%20about%20the%20Privacy%20Policy%20statement%20to%20the%20registrar@stmartins.edu)[statement](mailto:Direct%20your%20queries%20about%20the%20Privacy%20Policy%20statement%20to%20the%20registrar@stmartins.edu)[ ](mailto:Direct%20your%20queries%20about%20the%20Privacy%20Policy%20statement%20to%20the%20registrar@stmartins.edu)[to](mailto:Direct%20your%20queries%20about%20the%20Privacy%20Policy%20statement%20to%20the%20registrar@stmartins.edu)[ ](mailto:Direct%20your%20queries%20about%20the%20Privacy%20Policy%20statement%20to%20the%20registrar@stmartins.edu)[the](mailto:Direct%20your%20queries%20about%20the%20Privacy%20Policy%20statement%20to%20the%20registrar@stmartins.edu)[ ](mailto:Direct%20your%20queries%20about%20the%20Privacy%20Policy%20statement%20to%20the%20registrar@stmartins.edu)[**registrar@stmartins.edu**](mailto:Direct%20your%20queries%20about%20the%20Privacy%20Policy%20statement%20to%20the%20registrar@stmartins.edu)[.](mailto:Direct%20your%20queries%20about%20the%20Privacy%20Policy%20statement%20to%20the%20registrar@stmartins.edu)
+[Direct your queries about the Privacy Policy statement to the **registrar@stmartins.edu**.](mailto:Direct%20your%20queries%20about%20the%20Privacy%20Policy%20statement%20to%20the%20registrar@stmartins.edu)
 
 
 <br>
@@ -169,7 +168,7 @@ The duty of protecting data and its use at Saint Martin’s Institute of Higher 
 
 responsibility of the Registrar. Queries and concerns relating to the Institute’s processing of
 
-personal data, should be addressed to th[e](mailto:registrar@stmartins.edu)[ ](mailto:registrar@stmartins.edu)[**registrar@stmartins.edu**](mailto:registrar@stmartins.edu)[.](mailto:registrar@stmartins.edu)
+personal data, should be addressed to the [**registrar@stmartins.edu**](mailto:registrar@stmartins.edu).
 
 **Last Update:** 4<sup>th</sup> February, 2021
 
